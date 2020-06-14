@@ -1,0 +1,23 @@
+{
+  "name": "test-commit",
+  "version": "0.0.0-development",
+  "license": "MIT",
+  "devDependencies": {
+    "@commitlint/cli": "^8.3.5",
+    "@commitlint/config-conventional": "^8.3.4",
+    "commitizen": "^4.1.2",
+    "cz-customizable": "^6.2.0",
+    "conventional-commit-types": "^3.0.0",
+    "semantic-release": "^17.0.8"
+  },
+  "scripts": {
+    "commit:lint": "yarn commitlint --from HEAD~1 --to HEAD --verbose",
+    "commit:prompt": "yarn git-cz",
+    "commit:prompt-retry": "yarn git-cz --retry",
+    "_generate-changelog": "conventional-changelog -o CHANGELOG.md -r 0 --config conventional-changelog.config.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cognitivim/release-workflow-demo.git"
+  }
+}
