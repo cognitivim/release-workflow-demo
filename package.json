@@ -14,6 +14,7 @@
     "commit:lint": "yarn commitlint --from HEAD~1 --to HEAD --verbose",
     "commit:prompt": "yarn git-cz",
     "commit:prompt-retry": "yarn git-cz --retry",
+    "_release": "yarn semantic-release",
     "_generate-changelog": "conventional-changelog -o CHANGELOG.md -r 0 --config conventional-changelog.config.js"
   },
   "repository": {
