@@ -1,6 +1,6 @@
 module.exports = {
   plugins: [
-    '@semantic-release/git'
+    // '@semantic-release/git'
     // "@semantic-release/commit-analyzer",
     // "@semantic-release/release-notes-generator",
     // "@semantic-release/changelog",
