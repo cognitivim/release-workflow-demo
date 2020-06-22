@@ -373,7 +373,9 @@ const t2 = {
 };
 
 
-module.exports = {
+const t3 = {
+  branch: 'master',
+  tagFormat: '${version}',
   plugins: [
     '@semantic-release/commit-analyzer',
     '@semantic-release/release-notes-generator',
@@ -385,11 +387,116 @@ module.exports = {
         "npmPublish": false
       }
     ],
-    ['@semantic-release/github', {
+    ['@semantic-release/github', //{
       // assets: [
       //   { path: `${tarballDir}/*.tgz`, label: "test.tgz" }
       // ],
-    }],
+    // }
+    ],
     "@semantic-release/git",
+  ],
+  "verifyConditions": [
+    "@semantic-release/npm",
+    "@semantic-release/github",
+    "@semantic-release/git",
+    // "@semantic-release/changelog"
+  ],
+  "prepare": [
+    "@semantic-release/changelog",
+    "@semantic-release/npm",
+    {
+      "path": "@semantic-release/git",
+      "assets": ["CHANGELOG.md", "package.json"],
+      "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
+    }
   ]
-}
+};
+
+
+module.exports = {
+  branch: 'master',
+    plugins: [
+  [
+    '@semantic-release/commit-analyzer',
+    {
+      preset: 'conventionalcommits',
+      releaseRules: [
+        { breaking: true, release: 'major' },
+        { revert: true, release: 'patch' },
+
+        // -- minor
+        { type: 'feat', release: 'minor' },
+        { type: 'feature', release: 'minor' },
+
+        // -- patch
+        { type: 'fix', release: 'patch' },
+        { type: 'bugfix', release: 'patch' },
+        { type: 'hotfix', release: 'patch' },
+        { type: 'chore', release: 'patch' },
+        { type: 'perf', release: 'patch' },
+        { type: 'refactor', release: 'patch' },
+        { type: 'improvement', release: 'patch' },
+        { type: 'revert', release: 'patch' },
+        { type: 'style', release: 'patch' },
+        { type: 'docs', release: 'patch' },
+        { type: 'ci', release: 'patch' },
+        { type: 'test', release: 'patch' },
+
+        // -- no release
+        { type: 'ci', release: false },
+        { type: 'build', release: false },
+        { type: 'release', release: false },
+        { scope: 'no-release', release: false },
+      ],
+    },
+  ],
+  [
+    '@semantic-release/release-notes-generator',
+    {
+      // using conventionalcommits here since the angular preset does not allow custom
+      // types for release notes generation.
+      preset: 'conventionalcommits',
+      presetConfig: {
+        types: [
+          // { type: 'major', section: 'Breaking' },
+          // { type: 'breaking', section: 'Breaking' },
+          { type: 'feat', section: '🧩 Features' },
+          { type: 'feature', section: '🧩 Features' },
+          { type: 'fix', section: '🔧 Fixes' },
+          { type: 'bugfix', section: '🔧 Fixes' },
+          { type: 'hotfix', section: '🔧 Fixes' },
+          { type: 'chore', section: '💉 Improvements' },
+          { type: 'perf', section: '💉 Improvements' },
+          { type: 'refactor', section: '💉 Improvements' },
+          { type: 'improvement', section: '💉 Improvements' },
+          { type: 'style', section: '💉 Improvements' },
+          { type: 'docs', section: '📚 Docs' },
+
+          { type: 'ci', section: '⚙ Internals', hidden: true },
+          { type: 'build', section: '⚙ Internals', hidden: true },
+          {
+            type: 'release',
+            section: '⚙ Internals',
+            hidden: true,
+          },
+        ],
+      },
+    },
+  ],
+  // '@semantic-release/release-notes-generator',
+  '@semantic-release/changelog',
+  '@semantic-release/npm',
+  '@semantic-release/github',
+  '@semantic-release/git',
+],
+  verifyConditions: ['@semantic-release/npm', '@semantic-release/github', '@semantic-release/git'],
+  prepare: [
+  '@semantic-release/changelog',
+  '@semantic-release/npm',
+  {
+    path: '@semantic-release/git',
+    message:
+      'release: <%= nextRelease.version %> - <%= new Date().toISOString() %> [skip ci]\n\n<%= nextRelease.notes %>',
+  },
+],
+};
