@@ -8,7 +8,8 @@
     "commitizen": "^4.1.2",
     "cz-customizable": "^6.2.0",
     "conventional-commit-types": "^3.0.0",
-    "semantic-release": "^17.0.8"
+    "semantic-release": "^17.0.8",
+    "conventional-changelog-conventionalcommits": "^4.3.0"
   },
   "scripts": {
     "commit:lint": "yarn commitlint --from HEAD~1 --to HEAD --verbose",
