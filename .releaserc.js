@@ -1,6 +1,71 @@
+"use strict";
+
 const conventionalChangelogConfig = require('./conventional-changelog.config');
 
-module.exports = {
+// todo github secrets
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config();
+}
+
+const tarballDir = 'release';
+
+const t = {
+  ci: false,
+  debug: true,
+
+  "branches": ["master", "next"],
+  "plugins": [
+    "@semantic-release/commit-analyzer",
+    "@semantic-release/release-notes-generator",
+    "@semantic-release/changelog",
+    "@semantic-release/github",
+    "@semantic-release/git",
+    "@semantic-release/npm"
+  ],
+  "verifyConditions": [
+    {
+      "path": "@semantic-release/changelog",
+      "changelogFile": "CHANGELOG.md",
+      "changelogTitle": "# Changelog"
+    },
+    "@semantic-release/npm",
+    "@semantic-release/git",
+    "@semantic-release/github"
+  ],
+  "prepare": [
+    {
+      "path": "@semantic-release/changelog",
+      "changelogFile": "CHANGELOG.md"
+    },
+    "@semantic-release/npm",
+    {
+      "path": "@semantic-release/git",
+      "assets": [
+        "CHANGELOG.md",
+        "package.json",
+        "package-lock.json",
+        "npm-shrinkwrap.json",
+        "dist",
+        "README.md",
+        "docs"
+      ],
+      "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
+    }
+  ],
+  "publish": [
+    {
+      "path": "@semantic-release/npm",
+      "npmPublish": false
+    },
+    {
+      "path": "@semantic-release/github"
+    }
+  ],
+  "success": ["@semantic-release/github"],
+  "fail": ["@semantic-release/github"]
+};
+
+const t2 = {
   /**
    * default (https://github.com/semantic-release/semantic-release/blob/master/lib/get-config.js#L68)
    *
@@ -27,6 +92,14 @@ module.exports = {
      ],
 
    */
+
+
+    branches: "master",
+    tagFormat: "v${version}",
+    npmPublish: false,
+  ci: false, // todo
+  debug: true,
+  // branches: ['master'], // todo
 
   plugins: [
     ['@semantic-release/commit-analyzer', {
@@ -237,40 +310,53 @@ module.exports = {
 
        */
     }],
-    ['@semantic-release/github', // {
+    // todo
+    '@semantic-release/changelog',
+    ['@semantic-release/npm',
+      {
+        tarballDir,
+      // todo
+        "npmPublish": false
+    }
+    ],
+
+    ["@semantic-release/git",
+      {
+        "assets": ["CHANGELOG.md", "package.json"],
+        "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
+    }
+    ],
+
+      ['@semantic-release/github',
+        {
       /**
        * default (https://github.com/semantic-release/github/blob/master/lib/resolve-config.js)
        *
 
-         assets: undefined,
-         assignees: undefined,
-         githubUrl: env.GITHUB_API_URL || env.GH_URL || env.GITHUB_URL,
-         githubApiPathPrefix: env.GH_PREFIX || env.GITHUB_PREFIX || '',
-         proxy: env.HTTP_PROXY,
-         successComment: , // https://github.com/semantic-release/github/blob/master/lib/get-success-comment.js
-         failComment: , // https://github.com/semantic-release/github/blob/master/lib/get-fail-comment.js
-         failTitle: 'The automated release is failing 🚨',
-         labels: ['semantic-release'],
-         releasedLabels: [`released<%= nextRelease.channel ? \` on @\${nextRelease.channel}\` : "" %>`],
+       assets: undefined,
+       assignees: undefined,
+       githubUrl: env.GITHUB_API_URL || env.GH_URL || env.GITHUB_URL,
+       githubApiPathPrefix: env.GH_PREFIX || env.GITHUB_PREFIX || '',
+       proxy: env.HTTP_PROXY,
+       successComment: , // https://github.com/semantic-release/github/blob/master/lib/get-success-comment.js
+       failComment: , // https://github.com/semantic-release/github/blob/master/lib/get-fail-comment.js
+       failTitle: 'The automated release is failing 🚨',
+       labels: ['semantic-release'],
+       releasedLabels: [`released<%= nextRelease.channel ? \` on @\${nextRelease.channel}\` : "" %>`],
 
-         // (not documented)
-         // githubToken: env.GH_TOKEN || env.GITHUB_TOKEN,
+       // (not documented)
+       // githubToken: env.GH_TOKEN || env.GITHUB_TOKEN,
 
        */
 
-      // todo: assets, githubUrl, githubApiPathPrefix, githubToken
-      // assets: `${tarballDir}/*.tgz`, // const tarballDir = 'pack' = 'release'
-      // todo: https://github.com/semantic-release/github#environment-variables
+      assets: [
+        { path: `${tarballDir}/*.tgz`, label: "test.tgz" }
+      ],
 
-    // }
-    ],
-    // todo
-    // '@semantic-release/git'
-    // "@semantic-release/changelog",
+      //todo: https://github.com/semantic-release/github#environment-variables
+      }
+      ],
   ],
-  // ci: false, todo
-  debug: true,
-  // branches: ['master'], // todo
 
   /**
    * defaults (not used)
@@ -283,4 +369,27 @@ module.exports = {
       dryRun
 
    */
+
 };
+
+
+module.exports = {
+  plugins: [
+    '@semantic-release/commit-analyzer',
+    '@semantic-release/release-notes-generator',
+    '@semantic-release/changelog',
+    ['@semantic-release/npm',
+      {
+        // tarballDir,
+        // todo
+        "npmPublish": false
+      }
+    ],
+    ['@semantic-release/github', {
+      // assets: [
+      //   { path: `${tarballDir}/*.tgz`, label: "test.tgz" }
+      // ],
+    }],
+    "@semantic-release/git",
+  ]
+}

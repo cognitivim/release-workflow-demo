@@ -1,0 +1,11 @@
+dist/
+release/
+
+# Dependencies
+node_modules/
+
+# Local configuration
+.env
+
+# IDE
+.idea/
