@@ -22,7 +22,7 @@
     "s-release:test": "yarn semantic-release --dry-run --no-ci",
     "s-release:local": "yarn semantic-release --no-ci",
     "s-release:ci": "yarn semantic-release",
-    "prepare-release": "yarn standard-version"
+    "_prepare-release": "yarn standard-version"
   },
   "repository": {
     "type": "git",
