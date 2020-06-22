@@ -1,3 +1,21 @@
+# Changelog
+
+All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+## 1.1.0 (2020-06-22)
+
+
+### Features
+
+* test5 ([55c30dd](https://github.com/cognitivim/release-workflow-demo/commit/55c30dd3fbc14fdab6017dfa036d93e62e4f6aed))
+* test7 ([490da3b](https://github.com/cognitivim/release-workflow-demo/commit/490da3bf508edee1954ca8d9e06b2c6f12afa954))
+
+
+### Bug Fixes
+
+* test6 ([347c9bb](https://github.com/cognitivim/release-workflow-demo/commit/347c9bbe4729f9495f16f865e6cd33cb33cdcf73))
+* test9 ([67db4fa](https://github.com/cognitivim/release-workflow-demo/commit/67db4fa1bb7923c95c720e3e02613dff4385757c))
+
 ## 1.0.0 (2020-06-22)
 
 

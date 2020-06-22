@@ -1,6 +1,6 @@
 {
   "name": "test-commit",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "license": "MIT",
   "devDependencies": {
     "@commitlint/cli": "^8.3.5",
@@ -12,7 +12,8 @@
     "conventional-changelog-conventionalcommits": "^4.3.0",
     "dotenv": "^8.2.0",
     "@semantic-release/changelog": "^5.0.0",
-    "@semantic-release/git": "^9.0.0"
+    "@semantic-release/git": "^9.0.0",
+    "standard-version": "^7.1.0"
   },
   "scripts": {
     "commit:lint": "yarn commitlint --from HEAD~1 --to HEAD --verbose",
@@ -20,7 +21,8 @@
     "commit:prompt-retry": "yarn git-cz --retry",
     "s-release:test": "yarn semantic-release --dry-run --no-ci",
     "s-release:local": "yarn semantic-release --no-ci",
-    "s-release:ci": "yarn semantic-release"
+    "s-release:ci": "yarn semantic-release",
+    "prepare-release": "yarn standard-version"
   },
   "repository": {
     "type": "git",
