@@ -1,3 +1,10 @@
+## [1.4.0](https://github.com/cognitivim/release-workflow-demo/compare/v1.3.0...v1.4.0) (2020-06-22)
+
+
+### 🧩 Features
+
+* test11 ([9b2844e](https://github.com/cognitivim/release-workflow-demo/commit/9b2844e03dbc5c3161fa9b8c87184cdd8eaf32f1))
+
 # Changelog
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
