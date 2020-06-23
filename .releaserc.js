@@ -1,69 +1,6 @@
-"use strict";
-
 const conventionalChangelogConfig = require('./conventional-changelog.config');
 
-// todo github secrets
-if (process.env.NODE_ENV !== 'production') {
-  require('dotenv').config();
-}
-
-const tarballDir = 'release';
-const t = {
-  ci: false,
-  debug: true,
-
-  "branches": ["master", "next"],
-  "plugins": [
-    "@semantic-release/commit-analyzer",
-    "@semantic-release/release-notes-generator",
-    "@semantic-release/changelog",
-    "@semantic-release/github",
-    "@semantic-release/git",
-    "@semantic-release/npm"
-  ],
-  "verifyConditions": [
-    {
-      "path": "@semantic-release/changelog",
-      "changelogFile": "CHANGELOG.md",
-      "changelogTitle": "# Changelog"
-    },
-    "@semantic-release/npm",
-    "@semantic-release/git",
-    "@semantic-release/github"
-  ],
-  "prepare": [
-    {
-      "path": "@semantic-release/changelog",
-      "changelogFile": "CHANGELOG.md"
-    },
-    "@semantic-release/npm",
-    {
-      "path": "@semantic-release/git",
-      "assets": [
-        "CHANGELOG.md",
-        "package.json",
-        "package-lock.json",
-        "npm-shrinkwrap.json",
-        "dist",
-        "README.md",
-        "docs"
-      ],
-      "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
-    }
-  ],
-  "publish": [
-    {
-      "path": "@semantic-release/npm",
-      "npmPublish": false
-    },
-    {
-      "path": "@semantic-release/github"
-    }
-  ],
-  "success": ["@semantic-release/github"],
-  "fail": ["@semantic-release/github"]
-};
-const t2 = {
+module.exports = {
   /**
    * default (https://github.com/semantic-release/semantic-release/blob/master/lib/get-config.js#L68)
    *
@@ -90,15 +27,6 @@ const t2 = {
      ],
 
    */
-
-
-    branches: "master",
-    tagFormat: "v${version}",
-    npmPublish: false,
-  ci: false, // todo
-  debug: true,
-  // branches: ['master'], // todo
-
   plugins: [
     ['@semantic-release/commit-analyzer', {
       /**
@@ -308,25 +236,16 @@ const t2 = {
 
        */
     }],
-    // todo
-    '@semantic-release/changelog',
-    ['@semantic-release/npm',
-      {
-        tarballDir,
-      // todo
-        "npmPublish": false
-    }
-    ],
-
-    ["@semantic-release/git",
-      {
-        "assets": ["CHANGELOG.md", "package.json"],
-        "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
-    }
-    ],
-
-      ['@semantic-release/github',
-        {
+    ['@semantic-release/changelog', { // todo
+    }],
+    ['@semantic-release/exec', {
+      prepareCmd: 'yarn version --no-commit-hooks --no-git-tag-version --new-version ${nextRelease.version}'
+    }],
+    ['@semantic-release/git', { // todo
+      // assets: ['CHANGELOG.md', 'package.json'],
+      // message: "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
+    }],
+    ['@semantic-release/github', { // todo
       /**
        * default (https://github.com/semantic-release/github/blob/master/lib/resolve-config.js)
        *
@@ -347,15 +266,8 @@ const t2 = {
 
        */
 
-      assets: [
-        { path: `${tarballDir}/*.tgz`, label: "test.tgz" }
-      ],
-
-      //todo: https://github.com/semantic-release/github#environment-variables
-      }
-      ],
+    }]
   ],
-
   /**
    * defaults (not used)
    *
@@ -365,67 +277,8 @@ const t2 = {
       branches
       tagFormat
       dryRun
+      ci
+      debug
 
    */
-
-};
-const t3 = {
-  branch: 'master',
-  tagFormat: '${version}',
-  plugins: [
-    '@semantic-release/commit-analyzer',
-    '@semantic-release/release-notes-generator',
-    '@semantic-release/changelog',
-    ['@semantic-release/npm',
-      {
-        // tarballDir,
-        // todo
-        "npmPublish": false
-      }
-    ],
-    ['@semantic-release/github', //{
-      // assets: [
-      //   { path: `${tarballDir}/*.tgz`, label: "test.tgz" }
-      // ],
-    // }
-    ],
-    "@semantic-release/git",
-  ],
-  "verifyConditions": [
-    "@semantic-release/npm",
-    "@semantic-release/github",
-    "@semantic-release/git",
-    // "@semantic-release/changelog"
-  ],
-  "prepare": [
-    "@semantic-release/changelog",
-    "@semantic-release/npm",
-    {
-      "path": "@semantic-release/git",
-      "assets": ["CHANGELOG.md", "package.json"],
-      "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
-    }
-  ]
-};
-
-module.exports = {
-  // branches: ['master'],
-  plugins: [
-      '@semantic-release/commit-analyzer',
-      // '@semantic-release/release-notes-generator',
-      // '@semantic-release/changelog',
-      // '@semantic-release/npm',
-      // '@semantic-release/github',
-      // '@semantic-release/git',
-  ],
-  // verifyConditions: ['@semantic-release/npm', '@semantic-release/github', '@semantic-release/git'],
-  // prepare: [
-  // '@semantic-release/changelog',
-  // '@semantic-release/npm',
-  // {
-  //   path: '@semantic-release/git',
-  //   message:
-  //     'release: <%= nextRelease.version %> - <%= new Date().toISOString() %> [skip ci]\n\n<%= nextRelease.notes %>',
-  // },
-  // ],
 };
