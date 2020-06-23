@@ -13,14 +13,15 @@
     "cz-customizable": "^6.2.0",
     "dotenv": "^8.2.0",
     "semantic-release": "^17.1.0",
-    "standard-version": "^8.0.0"
+    "standard-version": "^8.0.0",
+    "dotenv-cli": "^3.1.0"
   },
   "scripts": {
     "commit:lint": "yarn commitlint --from HEAD~1 --to HEAD --verbose",
     "commit:prompt": "yarn git-cz",
     "commit:prompt-retry": "yarn git-cz --retry",
-    "s-release:test": "yarn semantic-release --dry-run --no-ci",
-    "s-release:local": "yarn semantic-release --no-ci",
+    "s-release:test": "dotenv -- yarn semantic-release --dry-run --no-ci",
+    "s-release:local": "dotenv -- yarn semantic-release --no-ci",
     "s-release:ci": "yarn semantic-release",
     "_prepare-release": "yarn standard-version"
   },

@@ -409,14 +409,14 @@ const t3 = {
 };
 
 module.exports = {
-  branches: ['master'],
+  // branches: ['master'],
   plugins: [
       '@semantic-release/commit-analyzer',
-      '@semantic-release/release-notes-generator',
-      '@semantic-release/changelog',
-      '@semantic-release/npm',
-      '@semantic-release/github',
-      '@semantic-release/git',
+      // '@semantic-release/release-notes-generator',
+      // '@semantic-release/changelog',
+      // '@semantic-release/npm',
+      // '@semantic-release/github',
+      // '@semantic-release/git',
   ],
   // verifyConditions: ['@semantic-release/npm', '@semantic-release/github', '@semantic-release/git'],
   // prepare: [
