@@ -20,7 +20,7 @@
     "commit:prompt": "yarn git-cz",
     "commit:prompt-retry": "yarn git-cz --retry",
     "s-release:test": "dotenv -- yarn semantic-release --dry-run --no-ci --debug",
-    "s-release:local": "dotenv -- yarn semantic-release --no-ci --debug",
+    "s-release:local": "dotenv -- yarn semantic-release --no-ci",
     "s-release:ci": "yarn semantic-release"
   },
   "repository": {

@@ -265,7 +265,6 @@ module.exports = {
        // githubToken: env.GH_TOKEN || env.GITHUB_TOKEN,
 
        */
-
     }]
   ],
   /**
