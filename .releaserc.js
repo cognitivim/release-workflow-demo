@@ -236,16 +236,52 @@ module.exports = {
 
        */
     }],
-    ['@semantic-release/changelog', { // todo
+    ['@semantic-release/changelog', {
+      /**
+       * default (https://github.com/semantic-release/changelog/blob/v5.0.1/lib/resolve-config.js#L3)
+       *
+
+         changelogFile: 'CHANGELOG.md',
+         changelogTitle: undefined
+
+       */
+      // todo
+      // "changelogFile": "docs/CHANGELOG.md"
     }],
     ['@semantic-release/exec', {
+      /**
+       * default
+       *
+
+         verifyConditionsCmd: undefined,
+         analyzeCommitsCmd: undefined,
+         generateNotesCmd: undefined,
+         prepareCmd: undefined,
+         addChannelCmd: undefined,
+         publishCmd: undefined,
+         successCmd: undefined,
+         failCmd: undefined,
+         shell: undefined,
+         execCwd: undefined,
+
+       */
       prepareCmd: 'yarn version --no-commit-hooks --no-git-tag-version --new-version ${nextRelease.version}'
     }],
-    ['@semantic-release/git', { // todo
-      // assets: ['CHANGELOG.md', 'package.json'],
-      // message: "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
+    ['@semantic-release/git', {
+      /**
+       * default
+       *
+          // https://github.com/semantic-release/git/blob/v9.0.0/lib/resolve-config.js#L3
+          assets: ['CHANGELOG.md', 'package.json', 'package-lock.json', 'npm-shrinkwrap.json'],
+
+          // https://github.com/semantic-release/git/blob/v9.0.0/lib/prepare.js#L66
+          message: `chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}`
+
+       */
+      // todo
+      // assets: ['docs/CHANGELOG.md', 'package.json'],
     }],
-    ['@semantic-release/github', { // todo
+    ['@semantic-release/github', {
       /**
        * default (https://github.com/semantic-release/github/blob/master/lib/resolve-config.js)
        *
