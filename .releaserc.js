@@ -8,7 +8,6 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 const tarballDir = 'release';
-
 const t = {
   ci: false,
   debug: true,
@@ -64,7 +63,6 @@ const t = {
   "success": ["@semantic-release/github"],
   "fail": ["@semantic-release/github"]
 };
-
 const t2 = {
   /**
    * default (https://github.com/semantic-release/semantic-release/blob/master/lib/get-config.js#L68)
@@ -371,8 +369,6 @@ const t2 = {
    */
 
 };
-
-
 const t3 = {
   branch: 'master',
   tagFormat: '${version}',
@@ -411,7 +407,6 @@ const t3 = {
     }
   ]
 };
-
 
 module.exports = {
   branch: 'master',
@@ -483,20 +478,19 @@ module.exports = {
       },
     },
   ],
-  // '@semantic-release/release-notes-generator',
   '@semantic-release/changelog',
   '@semantic-release/npm',
   '@semantic-release/github',
   '@semantic-release/git',
 ],
-  verifyConditions: ['@semantic-release/npm', '@semantic-release/github', '@semantic-release/git'],
-  prepare: [
-  '@semantic-release/changelog',
-  '@semantic-release/npm',
-  {
-    path: '@semantic-release/git',
-    message:
-      'release: <%= nextRelease.version %> - <%= new Date().toISOString() %> [skip ci]\n\n<%= nextRelease.notes %>',
-  },
-],
+  // verifyConditions: ['@semantic-release/npm', '@semantic-release/github', '@semantic-release/git'],
+  // prepare: [
+  // '@semantic-release/changelog',
+  // '@semantic-release/npm',
+  // {
+  //   path: '@semantic-release/git',
+  //   message:
+  //     'release: <%= nextRelease.version %> - <%= new Date().toISOString() %> [skip ci]\n\n<%= nextRelease.notes %>',
+  // },
+  // ],
 };
