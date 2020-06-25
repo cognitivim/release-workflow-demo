@@ -1,3 +1,10 @@
+## [1.2.0](https://github.com/cognitivim/release-workflow-demo/compare/v1.1.4...v1.2.0) (2020-06-25)
+
+
+### Features
+
+* test24 ([100247b](https://github.com/cognitivim/release-workflow-demo/commit/100247bb66703f8d75a1b91932091311a5c356a4))
+
 ### [1.1.4](https://github.com/cognitivim/release-workflow-demo/compare/v1.1.3...v1.1.4) (2020-06-23)
 
 ### [1.1.3](https://github.com/cognitivim/release-workflow-demo/compare/v1.1.2...v1.1.3) (2020-06-23)
