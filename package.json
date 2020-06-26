@@ -24,8 +24,8 @@
     "commit:lint": "yarn commitlint --from HEAD~1 --to HEAD --verbose",
     "commit:prompt": "yarn git-cz",
     "commit:prompt-retry": "yarn git-cz --retry",
-    "release:test": "dotenv -- yarn semantic-release --dry-run --no-ci --debug",
     "release": "dotenv -- yarn semantic-release --no-ci",
+    "release:test": "yarn release -- --dry-run --debug",
     "release:ci": "yarn semantic-release"
   }
 }
